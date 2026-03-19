@@ -1,3 +1,15 @@
 <?php
-// Database connection - to be implemented in Step 3
+// Database Configuration
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "library_management_system";
+
+// Create connection
+$conn = mysqli_connect($host, $username, $password, $database);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
