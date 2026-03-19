@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/db.php';
 
 $error = '';
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $row['admin_id'];
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['role'] = 'admin';
-                header("Location: /admin/dashboard.php");
+                header("Location: " . BASE_URL . "admin/dashboard.php");
                 exit;
             } else {
                 $error = 'Invalid username or password.';
@@ -56,7 +57,7 @@ include __DIR__ . '/../includes/header.php';
             </div>
             <button type="submit" class="btn btn-full">Login</button>
         </form>
-        <a href="/auth/login.php" class="back-link">Back to Role Selection</a>
+        <a href="<?= BASE_URL ?>auth/login.php" class="back-link">Back to Role Selection</a>
     </div>
 </div>
 

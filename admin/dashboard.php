@@ -1,30 +1,35 @@
 <?php
-session_start();
+$page_title = 'Dashboard';
+include __DIR__ . '/admin_header.php';
 
-// Session protection - admin only
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: /auth/admin_login.php");
-    exit;
-}
+// Get stats
+$total_books = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity) as total FROM books"))['total'] ?? 0;
+$total_members = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM member_details"))['total'];
+$total_librarians = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM librarian_details"))['total'];
+$total_issued = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM book_issues WHERE status IN ('Pending','Approved')"))['total'];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Library Management System</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
-
-<div class="dashboard-header">
-    <h2>Admin Dashboard</h2>
-    <a href="/auth/logout.php">Logout</a>
-</div>
 
 <div class="dashboard-body">
     <h3>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
-    <p>You are logged in as <strong>Admin</strong>.</p>
+
+    <div class="stat-cards">
+        <div class="stat-card">
+            <h4><?php echo $total_books; ?></h4>
+            <p>Total Books</p>
+        </div>
+        <div class="stat-card">
+            <h4><?php echo $total_members; ?></h4>
+            <p>Total Members</p>
+        </div>
+        <div class="stat-card">
+            <h4><?php echo $total_librarians; ?></h4>
+            <p>Total Librarians</p>
+        </div>
+        <div class="stat-card">
+            <h4><?php echo $total_issued; ?></h4>
+            <p>Issued Books</p>
+        </div>
+    </div>
 </div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
