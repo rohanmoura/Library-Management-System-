@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/db.php';
 
 $error = '';
@@ -27,13 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['role'] = 'librarian';
 
-                // Update last_login
                 $update = mysqli_prepare($conn, "UPDATE librarian_login SET last_login = NOW() WHERE login_id = ?");
                 mysqli_stmt_bind_param($update, "i", $row['login_id']);
                 mysqli_stmt_execute($update);
                 mysqli_stmt_close($update);
 
-                header("Location: /librarian/dashboard.php");
+                header("Location: " . BASE_URL . "librarian/dashboard.php");
                 exit;
             } else {
                 $error = 'Invalid username or password.';
@@ -68,7 +68,7 @@ include __DIR__ . '/../includes/header.php';
             </div>
             <button type="submit" class="btn btn-full">Login</button>
         </form>
-        <a href="/auth/login.php" class="back-link">Back to Role Selection</a>
+        <a href="<?= BASE_URL ?>auth/login.php" class="back-link">Back to Role Selection</a>
     </div>
 </div>
 

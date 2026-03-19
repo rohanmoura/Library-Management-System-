@@ -8,15 +8,15 @@ include __DIR__ . '/../includes/header.php';
     <p>Select your role to login</p>
 
     <div class="role-cards">
-        <a href="/auth/admin_login.php" class="role-card">
+        <a href="<?= BASE_URL ?>auth/admin_login.php" class="role-card">
             <h3>Admin</h3>
             <p>System Administrator</p>
         </a>
-        <a href="/auth/librarian_login.php" class="role-card">
+        <a href="<?= BASE_URL ?>auth/librarian_login.php" class="role-card">
             <h3>Librarian</h3>
             <p>Library Staff</p>
         </a>
-        <a href="/auth/member_login.php" class="role-card">
+        <a href="<?= BASE_URL ?>auth/member_login.php" class="role-card">
             <h3>Member</h3>
             <p>Library Member</p>
         </a>
