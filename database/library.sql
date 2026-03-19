@@ -122,7 +122,7 @@ CREATE TABLE issue_records (
 
 -- Admin (password: admin123)
 INSERT INTO admins (username, password, email)
-VALUES ('admin', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq', 'admin@library.com');
+VALUES ('admin', '$2y$12$/7Y/LRysjqBJtK1t038.ousKu.6C9tw8Ez9lLCmBGZkqRAbG9Eon2', 'admin@library.com');
 
 -- Librarian details
 INSERT INTO librarian_details (name, specialization, experience, phone, email, status)
@@ -130,7 +130,7 @@ VALUES ('Rahul Sharma', 'Cataloging', 5, '9876543210', 'rahul@library.com', 'App
 
 -- Librarian login (password: librarian123)
 INSERT INTO librarian_login (librarian_id, username, password)
-VALUES (1, 'rahul', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq');
+VALUES (1, 'rahul', '$2y$12$.oSnlWX9ZdXltX/MIUInJ.wA6iaNofMN7MOwRYE5lQO869E41W/b6');
 
 -- Member details
 INSERT INTO member_details (name, age, gender, address, phone, membership_type, join_date, email)
@@ -138,7 +138,7 @@ VALUES ('Priya Patel', 21, 'Female', '456 College Road', '9123456780', 'Student'
 
 -- Member login (password: member123)
 INSERT INTO member_login (member_id, username, password)
-VALUES (1, 'priya', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq');
+VALUES (1, 'priya', '$2y$12$3QqD9Febx4uu/c06QUZN7OFjXYTzLfzPs5dGAlY5r.mvq1aRu1.UK');
 
 -- Books (5 sample books)
 INSERT INTO books (title, author, category, quantity, available_quantity) VALUES

@@ -1,3 +1,7 @@
 <?php
-// Logout handler - to be implemented in Step 4
+session_start();
+session_unset();
+session_destroy();
+header("Location: /auth/login.php");
+exit;
 ?>
