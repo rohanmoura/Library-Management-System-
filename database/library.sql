@@ -1,6 +1,7 @@
 -- =============================================
 -- Library Management System - Database Schema
 -- Database: library_management_system
+-- Matches Original Project Synopsis Exactly
 -- =============================================
 
 CREATE DATABASE IF NOT EXISTS library_management_system;
@@ -11,10 +12,9 @@ USE library_management_system;
 -- =============================================
 CREATE TABLE admins (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -23,10 +23,12 @@ CREATE TABLE admins (
 -- =============================================
 CREATE TABLE librarian_details (
     librarian_id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    phone VARCHAR(15),
-    address VARCHAR(255),
+    name VARCHAR(100) NOT NULL,
+    specialization VARCHAR(100),
+    experience INT,
+    phone VARCHAR(20),
+    email VARCHAR(150) NOT NULL UNIQUE,
+    status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -36,10 +38,9 @@ CREATE TABLE librarian_details (
 CREATE TABLE librarian_login (
     login_id INT AUTO_INCREMENT PRIMARY KEY,
     librarian_id INT NOT NULL,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    status ENUM('active', 'inactive') DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL,
     FOREIGN KEY (librarian_id) REFERENCES librarian_details(librarian_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -48,10 +49,14 @@ CREATE TABLE librarian_login (
 -- =============================================
 CREATE TABLE member_details (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    phone VARCHAR(15),
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    gender VARCHAR(20),
     address VARCHAR(255),
+    phone VARCHAR(20),
+    membership_type VARCHAR(100),
+    join_date DATE,
+    email VARCHAR(150) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -61,10 +66,9 @@ CREATE TABLE member_details (
 CREATE TABLE member_login (
     login_id INT AUTO_INCREMENT PRIMARY KEY,
     member_id INT NOT NULL,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    status ENUM('active', 'inactive') DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL,
     FOREIGN KEY (member_id) REFERENCES member_details(member_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -86,30 +90,27 @@ CREATE TABLE books (
 -- =============================================
 CREATE TABLE book_issues (
     issue_id INT AUTO_INCREMENT PRIMARY KEY,
-    book_id INT NOT NULL,
     member_id INT NOT NULL,
+    book_id INT NOT NULL,
     issue_date DATE NOT NULL,
-    due_date DATE NOT NULL,
-    return_date DATE DEFAULT NULL,
-    status ENUM('issued', 'returned') DEFAULT 'issued',
-    issued_by INT NOT NULL,
+    status ENUM('Pending', 'Approved', 'Done', 'Cancelled') DEFAULT 'Pending',
+    notes TEXT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE,
     FOREIGN KEY (member_id) REFERENCES member_details(member_id) ON DELETE CASCADE,
-    FOREIGN KEY (issued_by) REFERENCES librarian_details(librarian_id) ON DELETE CASCADE
+    FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- =============================================
--- 8. ISSUE RECORDS TABLE (History/Log)
+-- 8. ISSUE RECORDS TABLE
 -- =============================================
 CREATE TABLE issue_records (
     record_id INT AUTO_INCREMENT PRIMARY KEY,
     issue_id INT NOT NULL,
     book_id INT NOT NULL,
     member_id INT NOT NULL,
-    action ENUM('issued', 'returned') NOT NULL,
-    action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    remarks VARCHAR(255) DEFAULT NULL,
+    remarks TEXT DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (issue_id) REFERENCES book_issues(issue_id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE,
     FOREIGN KEY (member_id) REFERENCES member_details(member_id) ON DELETE CASCADE
@@ -120,24 +121,24 @@ CREATE TABLE issue_records (
 -- =============================================
 
 -- Admin (password: admin123)
-INSERT INTO admins (username, password, full_name, email)
-VALUES ('admin', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq', 'System Admin', 'admin@library.com');
+INSERT INTO admins (username, password, email)
+VALUES ('admin', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq', 'admin@library.com');
 
 -- Librarian details
-INSERT INTO librarian_details (full_name, email, phone, address)
-VALUES ('Rahul Sharma', 'rahul@library.com', '9876543210', '123 Library Street');
+INSERT INTO librarian_details (name, specialization, experience, phone, email, status)
+VALUES ('Rahul Sharma', 'Cataloging', 5, '9876543210', 'rahul@library.com', 'Approved');
 
 -- Librarian login (password: librarian123)
-INSERT INTO librarian_login (librarian_id, username, password, status)
-VALUES (1, 'rahul', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq', 'active');
+INSERT INTO librarian_login (librarian_id, username, password)
+VALUES (1, 'rahul', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq');
 
 -- Member details
-INSERT INTO member_details (full_name, email, phone, address)
-VALUES ('Priya Patel', 'priya@gmail.com', '9123456780', '456 College Road');
+INSERT INTO member_details (name, age, gender, address, phone, membership_type, join_date, email)
+VALUES ('Priya Patel', 21, 'Female', '456 College Road', '9123456780', 'Student', '2026-01-15', 'priya@gmail.com');
 
 -- Member login (password: member123)
-INSERT INTO member_login (member_id, username, password, status)
-VALUES (1, 'priya', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq', 'active');
+INSERT INTO member_login (member_id, username, password)
+VALUES (1, 'priya', '$2y$10$8K1p/a0dR1xFc0aGMz9Oy.0NKGC8U1V6M8fE3cJ1Ue2vK9TqW5iq');
 
 -- Books (5 sample books)
 INSERT INTO books (title, author, category, quantity, available_quantity) VALUES
