@@ -1,30 +1,41 @@
 <?php
-session_start();
-require_once __DIR__ . '/../config/config.php';
+$page_title = 'Dashboard';
+include __DIR__ . '/member_header.php';
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'member') {
-    header("Location: " . BASE_URL . "auth/member_login.php");
-    exit;
-}
+$member_id = $_SESSION['user_id'];
+
+$available_books = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(available_quantity) as total FROM books"))['total'] ?? 0;
+
+$stmt = mysqli_prepare($conn, "SELECT COUNT(*) as total FROM book_issues WHERE member_id = ? AND status = 'Approved'");
+mysqli_stmt_bind_param($stmt, "i", $member_id);
+mysqli_stmt_execute($stmt);
+$issued = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))['total'];
+mysqli_stmt_close($stmt);
+
+$stmt = mysqli_prepare($conn, "SELECT COUNT(*) as total FROM book_issues WHERE member_id = ? AND status = 'Pending'");
+mysqli_stmt_bind_param($stmt, "i", $member_id);
+mysqli_stmt_execute($stmt);
+$pending = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))['total'];
+mysqli_stmt_close($stmt);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Dashboard - Library Management System</title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
-</head>
-<body>
-
-<div class="dashboard-header">
-    <h2>Member Dashboard</h2>
-    <a href="<?= BASE_URL ?>auth/logout.php">Logout</a>
-</div>
 
 <div class="dashboard-body">
     <h3>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
-    <p>You are logged in as <strong>Member</strong>.</p>
+
+    <div class="stat-cards">
+        <div class="stat-card">
+            <h4><?php echo $available_books; ?></h4>
+            <p>Available Books</p>
+        </div>
+        <div class="stat-card">
+            <h4><?php echo $issued; ?></h4>
+            <p>My Issued Books</p>
+        </div>
+        <div class="stat-card">
+            <h4><?php echo $pending; ?></h4>
+            <p>Pending Requests</p>
+        </div>
+    </div>
 </div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
