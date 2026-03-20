@@ -74,6 +74,10 @@ body.bg-reports {
   background: url("../images/reports.jpg") center center / cover no-repeat fixed;
 }
 
+body.bg-librarian-dashboard {
+  background: url("../images/librarian-dashboard.jpg") center center / cover no-repeat fixed;
+}
+
 body.bg-admin-dashboard::before {
   background: rgba(0, 0, 0, 0.3);
 }

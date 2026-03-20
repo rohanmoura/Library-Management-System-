@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Issue Book';
+$body_class = 'bg-add-book';
 include __DIR__ . '/librarian_header.php';
 
 $error = '';

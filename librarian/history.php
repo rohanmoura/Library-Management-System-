@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Issue History';
+$body_class = 'bg-reports';
 include __DIR__ . '/librarian_header.php';
 
 $records = mysqli_query($conn, "SELECT bi.issue_id, bi.issue_date, bi.status, bi.notes,
@@ -8,7 +9,7 @@ $records = mysqli_query($conn, "SELECT bi.issue_id, bi.issue_date, bi.status, bi
                                 FROM book_issues bi
                                 JOIN books b ON bi.book_id = b.book_id
                                 JOIN member_details md ON bi.member_id = md.member_id
-                                ORDER BY bi.issue_id DESC");
+                                ORDER BY bi.issue_id ASC");
 ?>
 
 <div class="dashboard-body">

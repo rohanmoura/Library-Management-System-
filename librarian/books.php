@@ -1,8 +1,9 @@
 <?php
 $page_title = 'View Books';
+$body_class = 'bg-manage-books';
 include __DIR__ . '/librarian_header.php';
 
-$books = mysqli_query($conn, "SELECT * FROM books ORDER BY book_id DESC");
+$books = mysqli_query($conn, "SELECT * FROM books ORDER BY book_id ASC");
 ?>
 
 <div class="dashboard-body">

@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Return Book';
+$body_class = 'bg-view-members';
 include __DIR__ . '/librarian_header.php';
 
 $success = '';
@@ -39,7 +40,7 @@ $issued = mysqli_query($conn, "SELECT bi.issue_id, bi.issue_date, b.title, b.aut
                                 JOIN books b ON bi.book_id = b.book_id
                                 JOIN member_details md ON bi.member_id = md.member_id
                                 WHERE bi.status = 'Approved'
-                                ORDER BY bi.issue_date DESC");
+                                ORDER BY bi.issue_date ASC");
 ?>
 
 <div class="dashboard-body">

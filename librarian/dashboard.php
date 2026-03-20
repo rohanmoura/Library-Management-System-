@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Dashboard';
+$body_class = 'bg-librarian-dashboard';
 include __DIR__ . '/librarian_header.php';
 
 $total_books = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity) as total FROM books"))['total'] ?? 0;
