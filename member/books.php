@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Browse Books';
+$body_class = 'bg-manage-books';
 include __DIR__ . '/member_header.php';
 
 $member_id = $_SESSION['user_id'];

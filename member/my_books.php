@@ -1,5 +1,6 @@
 <?php
 $page_title = 'My Books';
+$body_class = 'bg-add-book';
 include __DIR__ . '/member_header.php';
 
 $member_id = $_SESSION['user_id'];
@@ -9,7 +10,7 @@ $stmt = mysqli_prepare($conn, "SELECT bi.issue_id, bi.issue_date, bi.status, bi.
                                 FROM book_issues bi
                                 JOIN books b ON bi.book_id = b.book_id
                                 WHERE bi.member_id = ?
-                                ORDER BY bi.issue_id DESC");
+                                ORDER BY bi.issue_id ASC");
 mysqli_stmt_bind_param($stmt, "i", $member_id);
 mysqli_stmt_execute($stmt);
 $records = mysqli_stmt_get_result($stmt);

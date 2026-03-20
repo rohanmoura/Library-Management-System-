@@ -16,14 +16,20 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'member') {
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Member - Library Management System</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
 </head>
-<body>
+<body class="<?= isset($body_class) ? $body_class : '' ?>">
 
 <div class="dashboard-header">
     <h2>Member Panel</h2>
+        <?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
     <nav>
-        <a href="<?= BASE_URL ?>member/dashboard.php">Dashboard</a>
-        <a href="<?= BASE_URL ?>member/books.php">Books</a>
-        <a href="<?= BASE_URL ?>member/my_books.php">My Books</a>
-        <a href="<?= BASE_URL ?>auth/logout.php">Logout</a>
-    </nav>
+    <a href="<?= BASE_URL ?>member/dashboard.php" class="<?= $current_page == 'dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+    
+    <a href="<?= BASE_URL ?>member/books.php" class="<?= $current_page == 'books.php' ? 'active' : '' ?>">Books</a>
+    
+    <a href="<?= BASE_URL ?>member/my_books.php" class="<?= $current_page == 'my_books.php' ? 'active' : '' ?>">My Books</a>
+    
+    <a href="<?= BASE_URL ?>auth/logout.php" class="logout">Logout</a>
+</nav>
 </div>

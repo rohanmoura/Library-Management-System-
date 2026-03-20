@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Dashboard';
+$body_class = 'bg-member-dashboard';
 include __DIR__ . '/member_header.php';
 
 $member_id = $_SESSION['user_id'];

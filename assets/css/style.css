@@ -75,7 +75,13 @@ body.bg-reports {
 }
 
 body.bg-librarian-dashboard {
-  background: url("../images/librarian-dashboard.jpg") center center / cover no-repeat fixed;
+  background: url("../images/librarian-dashboard.jpg") center center / cover
+    no-repeat fixed;
+}
+
+body.bg-member-dashboard {
+  background: url("../images/member-dashboard.jpg") center center / cover
+    no-repeat fixed;
 }
 
 body.bg-admin-dashboard::before {
