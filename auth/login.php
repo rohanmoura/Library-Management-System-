@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Login';
+$body_class = 'bg-login'; // 👈 ye add kar
 include __DIR__ . '/../includes/header.php';
 ?>
 

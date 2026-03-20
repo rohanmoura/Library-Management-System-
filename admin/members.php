@@ -1,8 +1,9 @@
 <?php
 $page_title = 'View Members';
+$body_class = 'bg-view-members';
 include __DIR__ . '/admin_header.php';
 
-$members = mysqli_query($conn, "SELECT * FROM member_details ORDER BY member_id DESC");
+$members = mysqli_query($conn, "SELECT * FROM member_details ORDER BY member_id ASC");
 ?>
 
 <div class="dashboard-body">

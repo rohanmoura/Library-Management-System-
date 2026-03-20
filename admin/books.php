@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Manage Books';
+$body_class = 'bg-manage-books';
 include __DIR__ . '/admin_header.php';
 
 // Handle delete
@@ -13,7 +14,7 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-$books = mysqli_query($conn, "SELECT * FROM books ORDER BY book_id DESC");
+$books = mysqli_query($conn, "SELECT * FROM books ORDER BY book_id ASC");
 ?>
 
 <div class="dashboard-body">

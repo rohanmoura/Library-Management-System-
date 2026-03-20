@@ -10,4 +10,4 @@ require_once __DIR__ . '/../config/config.php';
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Library Management System</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
 </head>
-<body>
+<body class="<?= isset($body_class) ? $body_class : '' ?>">

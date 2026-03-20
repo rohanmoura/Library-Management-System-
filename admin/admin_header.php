@@ -16,16 +16,24 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Admin - Library Management System</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
 </head>
-<body>
+<body class="<?= isset($body_class) ? $body_class : '' ?>">
 
 <div class="dashboard-header">
     <h2>Admin Panel</h2>
+    <?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
     <nav>
-        <a href="<?= BASE_URL ?>admin/dashboard.php">Dashboard</a>
-        <a href="<?= BASE_URL ?>admin/books.php">Books</a>
-        <a href="<?= BASE_URL ?>admin/librarians.php">Librarians</a>
-        <a href="<?= BASE_URL ?>admin/members.php">Members</a>
-        <a href="<?= BASE_URL ?>admin/reports.php">Reports</a>
-        <a href="<?= BASE_URL ?>auth/logout.php">Logout</a>
-    </nav>
+    <a href="<?= BASE_URL ?>admin/dashboard.php" class="<?= $current_page == 'dashboard.php' ? 'active' : '' ?>">Dashboard</a>
+    
+    <a href="<?= BASE_URL ?>admin/books.php" class="<?= $current_page == 'books.php' ? 'active' : '' ?>">Books</a>
+    
+    <a href="<?= BASE_URL ?>admin/librarians.php" class="<?= $current_page == 'librarians.php' ? 'active' : '' ?>">Librarians</a>
+    
+    <a href="<?= BASE_URL ?>admin/members.php" class="<?= $current_page == 'members.php' ? 'active' : '' ?>">Members</a>
+    
+    <a href="<?= BASE_URL ?>admin/reports.php" class="<?= $current_page == 'reports.php' ? 'active' : '' ?>">Reports</a>
+    
+    <a href="<?= BASE_URL ?>auth/logout.php" class="logout">Logout</a>
+</nav>
 </div>

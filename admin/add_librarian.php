@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Add Librarian';
+$body_class = 'bg-add-librarian';
 include __DIR__ . '/admin_header.php';
 
 $error = '';

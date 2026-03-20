@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Dashboard';
+$body_class = 'bg-admin-dashboard';
 include __DIR__ . '/admin_header.php';
 
 // Get stats

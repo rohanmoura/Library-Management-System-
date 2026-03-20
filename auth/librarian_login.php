@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $page_title = 'Librarian Login';
+$body_class = 'bg-librarian-login';
 include __DIR__ . '/../includes/header.php';
 ?>
 

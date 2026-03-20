@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $page_title = 'Admin Login';
+$body_class = 'bg-admin-login';
 include __DIR__ . '/../includes/header.php';
 ?>
 

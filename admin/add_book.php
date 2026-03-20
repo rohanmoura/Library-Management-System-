@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Add Book';
+$body_class = 'bg-add-book';
 include __DIR__ . '/admin_header.php';
 
 $error = '';

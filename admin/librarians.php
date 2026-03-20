@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Manage Librarians';
+$body_class = 'bg-manage-librarians';
 include __DIR__ . '/admin_header.php';
 
 // Handle status update
@@ -17,7 +18,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     }
 }
 
-$librarians = mysqli_query($conn, "SELECT * FROM librarian_details ORDER BY librarian_id DESC");
+$librarians = mysqli_query($conn, "SELECT * FROM librarian_details ORDER BY librarian_id ASC");
 ?>
 
 <div class="dashboard-body">

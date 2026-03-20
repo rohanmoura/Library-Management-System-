@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $page_title = 'Member Login';
+$body_class = 'bg-member-login';
 include __DIR__ . '/../includes/header.php';
 ?>
 

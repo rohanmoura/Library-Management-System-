@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Edit Book';
+$body_class = 'bg-edit-book';
 include __DIR__ . '/admin_header.php';
 
 $id = (int) ($_GET['id'] ?? 0);

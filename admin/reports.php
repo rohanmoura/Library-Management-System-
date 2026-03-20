@@ -1,5 +1,6 @@
 <?php
 $page_title = 'Reports';
+$body_class = 'bg-reports';
 include __DIR__ . '/admin_header.php';
 
 $issues = mysqli_query($conn, "SELECT bi.issue_id, bi.issue_date, bi.status, bi.notes,
